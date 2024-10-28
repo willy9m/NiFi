@@ -1,6 +1,9 @@
 # Caso práctico NiFi
 
-**Caso 1 - Mover datos**
+Este caso practico va a ayudarnos a familiarizarnos con el framework de nifi.
+Se divide en cuatro casos sencillos donde veremos algunas de las funcionalidades que nos ofrece esta aplicacion
+
+## Caso 1 - Mover datos
 
 Vamos a hacer un pequeño ejercicio con Nifi para familiarizarnos con el entorno desarrollando un flujo de datos sencillo que mueva un fichero de un directorio a otro.
 
@@ -11,7 +14,7 @@ A continuación detallamos los pasos a realizar:
 
    ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.001.png)
    
-   Diálogo de elección de procesador
+   _Diálogo de elección de procesador_
    
 
    1. A la izquierda una nube de etiquetas para poder filtrar los procesador.
@@ -24,14 +27,14 @@ Así pues, buscamos el procesador *GetFile* y lo añadimos al flujo.
 
 ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.002.png)
 
-Propiedades de GetFile
+_Propiedades de GetFile_
 
 4. Ahora añadimos un nuevo procesador de tipo *PutFile*, y en las propiedades indicamos el directorio de salida con la propiedad *directory* a /home/iabd/Documentos/out.
 4. Si visualizamos la pestaña *Settings*, y nos centramos en el lado derecho, podemos configurar el comportamiento a seguir si el procesador se ejecuta correctamente (*success*) o falla (*failure*). Como vamos a hacer que este procesador sea el paso final, vamos a configurar que *autoterminen* marcando ambos casos:
 
 ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.003.png)
 
-Finalización de PutFile
+_Finalización de PutFile_
 
 ****Terminar las relaciones****
 
@@ -40,7 +43,8 @@ Si nos olvidamos de autoterminar las relaciones, o tenemos conexiones sin conect
 6. Unimos ambos procesadores creando una conexión. Para ello, tras pulsar sobre el icono de la flecha que aparece al dejar el ratón sobre el primer procesador y lo arrastramos hasta el segundo.
 
 ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.004.png)
-Conexión mediante un conector entre procesadores
+
+_Conexión mediante un conector entre procesadores_
 
 7. Antes de arrancar el primer procesador, creamos un pequeño fichero en el directorio que hemos puesto como entrada:
 
@@ -59,7 +63,7 @@ Si vamos a la pestaña *Properties* del procesador *PonerFichero*, podemos ca
 
 ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.005.png)
 
-Propiedades de PutFile - gestión de conflictos
+_Propiedades de PutFile - gestión de conflictos_
 
 Realmente, en vez de decidir si lo ignora o lo sobreescribe, lo ideal es definir un nuevo flujo que dependa del estado de finalización del procesador. De esta manera, podremos almacenar todos los archivos que han llegado con el mismo nombre para su posterior estudio.
 
@@ -67,7 +71,7 @@ Así pues, vamos a quitar la *autoterminación* que antes habíamos puesto al 
 
 ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.006.png)
 
-Flujo failure para los ficheros repetidos
+_Flujo failure para los ficheros repetidos_
 
 Aunque ahora tenemos un mecanismo para almacenar los ficheros que coinciden en nombre, sólo nos guardará uno (nos sucede lo mismo que antes, pero ahora sólo con los repetidos).
 
@@ -84,18 +88,7 @@ Hemos decidido añadir como prefijo al nombre del archivo la fecha del sistema e
 ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.008.png)Añadimos el procesador UpdateAttribute
 
 
-
-
-
-
-
-
-
-
-
-
-
-**Caso 2 - Trabajando con atributos**
+## Caso 2 - Trabajando con atributos
 
 Cada vez que se generan FlowFile (representa un registro de datos que viaja por el flujo) estos van a tener asignados ciertos atributos por defecto. Entre estos atributos están el UUID o identificador único, su *timestamp* y el tamaño del fichero. Como ya hemos visto, mediante el uso de procesadores podremos modificar estos o añadir nuevos atributos.
 
@@ -114,13 +107,16 @@ Vamos a ver cómo hacerlo realizando los siguientes pasos:
 
 ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.009.png)
 
-Configuración del procesador GenerateFlowFile
+_Configuración del procesador GenerateFlowFile_
 
 A continuación, en la configuración de planificación (*Scheduling*) de este procesador vamos a indicar que se ejecute cada 3 segundos (en el campo *Run Schedule* le ponemos como valor 3 sec).
 
 1. Una vez tenemos listo el generador, vamos a añadir el procesador *ReplaceText* con el que cambiaremos el texto. Tras ello, conectamos ambos procesadores.
 
-   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.010.png)Conexión con ReplaceText
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.010.png)
+
+   _Conexión con ReplaceText_
+   
 1. Si nos fijamos, a la izquierda del nombre del procesador, aparece un icono de aviso, el cual nos indica que necesitamos configurar el nuevo procesador, además de indicarnos que ambas relaciones no están conectadas o que faltan por autocompletar.
 
    ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.011.png)Avisos que aparecen
@@ -129,7 +125,9 @@ A continuación, en la configuración de planificación (*Scheduling*) de este p
 
 1. Añadimos un procesador de tipo *LogAttribute* para mostrar en el log los atributos del FF, y conectamos el procesador anterior (*ReplaceText*) a éste mediante la relación success.
 
-   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.012.png)Log con los atributos
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.012.png)
+
+   _Log con los atributos_
 
 1. Arrancamos el primer procesador y visualizamos la cola para comprobar qué ha generado. Para ello, sobre la cola elegimos la opción *list queue* para ver su contenido, y tras elegir uno, sobre el icono del ojo, visualizamos su contenido y comprobado que ha generado datos aleatorios:
 
@@ -143,7 +141,9 @@ A continuación, en la configuración de planificación (*Scheduling*) de este p
 
 1. Si ejecutamos el siguiente procesador, vemos que saca el FF de la cola anterior y aparecerá en la siguiente. Si comprobamos su valor, veremos que ha cambiado el valor original por prueba.
 
-   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.017.png)Resultado de visualizar la cola tras ReplaceText
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.017.png)
+
+   _Resultado de visualizar la cola tras ReplaceText_
 
 Si accedemos al log de la aplicación (archivo nifi-app.log dentro de la carpeta logs) veremos mensajes similares a:
 
@@ -189,19 +189,21 @@ Ahora vamos a extraer el contenido del FF a un atributo mediante el procesador 
 
    ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.018.png)
 
-   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.019.gif)Añadimos la propiedad contenido a ExtractText
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.019.gif)
+
+   _Añadimos la propiedad contenido a ExtractText_
 
 7. Una vez creado, vamos a colocar este procesador entre los dos anteriores (para el segundo con el caso matched, que es cuando ha coincidido con la expresión regular). En la conexión unmatched la marcamos para que autotermine, y comprobamos que no tenemos ningún advertencia en ningún procesador.
 
    ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.020.png)
 
-   Flujo completo del caso 2
+   _Flujo completo del caso 2_
 
 7. Finalmente, ejecutamos todos los procesadores y comprobamos como en el log aparece el nuevo atributo creado. También podemos acceder a la cola, y en la parte izquierda de cada flujo, en el icono de la i, pulsar y comprobar la pestaña *Atributes*.
 
    ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.021.png)Comprobación de los atributos de un FF
 
-Linaje de los datos
+_Linaje de los datos_
 
 Para comprobar el dato final, es muy útil utilizar la opción de *Data provenance*, la cual nos ofrece un linaje de los datos.
 
@@ -215,24 +217,11 @@ Para ello, sobre el procesador final, con el botón derecho, elegimos la opción
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-**Caso 3 - Filtrado de datos**
+## Caso 3 - Filtrado de datos
 
 En este caso, vamos a coger los datos de [ventas](dataset/ventas_paises.csv), el cual tiene la siguiente estructura:
 
-**pdi\_sales\_small.csv**
+**venta\_paises.csv**
 
 ProductID;Date;Zip;Units;Revenue;Country
 
@@ -246,7 +235,7 @@ Utilizando Nifi, vamos a crear un nuevo fichero CSV que contenga únicamente los
 
 Para ello, tendremos que leer el fichero haciendo uso del procesador *GetFile*, separar cada fila en un FF mediante *SplitRecord*, filtrar los datos usando el procesador *QueryRecord* y finalmente los almacenaremos en disco gracias al procesador *PutFile*.
 
-Lectura y división
+### Lectura y división
 
 1. Así pues, comenzamos leyendo el fichero con el procesador *GetFile*. En este caso vamos a dejar la opción *keep source file* a *true* para que no lo elimine.
 1. Mediante el procesador *SplitRecord*, vamos a separar cada fila del CSV a un FF. Para ello, primero hemos de crear un *RecordReader* y un *RecordWriter* para que sepa interactuar con el CSV (*Nifi* ya tiene varios implementados que podemos utilizar). Así pues:
@@ -255,21 +244,24 @@ Lectura y división
 
 Para configurar estos servicios, pulsaremos sobre la flecha, y veremos la pantalla de configuración. Para cada uno de ellos, tendremos otros tres iconos: la rueda para configurar, el rayo para activar/desactivar el servicio y la papelera para eliminarlo. Así, pues, tras comprobar los valores de *CVSReader* y *CSVSWriter* (indicamos el ; como separador de campos tanto para la lectura como la escritura de CSV en el campo *value separator y marcamos como* true *que el archivo contiene la primera fila con encabezados (*treat first line as header\*)), pulsamos sobre el rayo para activar ambos servicios.
 
-![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.023.gif)Configuración y activación de Split Record
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.023.gif)
+
+_Configuración y activación de Split Record_
 
 Finalmente, en el campo *Records per Split* le indicamos 1 para que coloque cada fila en un FF.
 
-Filtrado de FF
+### Filtrado de FF
 
 3. En este paso, mediante el procesador *QueryRecord* vamos a ejecutar una consulta SQL contra el FF. El resultado del nuevo FF será el resultado de la consulta. En nuestro caso, como hemos comentado antes, vamos a quedarnos con las ventas de más de una unidad realizadas en Francia.
 
    Igual que antes, configuramos los mismos *Record Reader* y *Record Writer*. Además, hemos de poner la propiedad *Include Zero Record FlowFiles* a *false* para que no vuelva a enrutar los FF que no cumplan la consulta. Finalmente, añadimos una nueva propiedad para indicar la consulta. En nuestro caso la hemos denominado FranciaMayor1 y en el contenido ponemos la consulta:
-
-   select \* from Flowfile where Country = 'France' and Units > 1
+````
+   select * from Flowfile where Country = 'France' and Units > 1
+````
 
    **campos**
 
-   También podríamos haber filtrado los campos para recuperar menos contenido con una consulta similar a select ProductID, Date from FlowFile ..... Con este procesador podemos filtrar, hacer agrupaciones, cálculos, del mismo modo que lo hacemos con SQL.
+   También podríamos haber filtrado los campos para recuperar menos contenido con una consulta similar a ```select ProductID, Date from FlowFile .....``` Con este procesador podemos filtrar, hacer agrupaciones, cálculos, del mismo modo que lo hacemos con SQL.
 
 3. Finalmente, igual que hicimos en el caso 1, vamos a cambiarle el nombre a cada FF para generar un archivo por cada resultado mediante *UpdateAttribute* y persistimos los datos con *PutFile*.
 
@@ -277,24 +269,13 @@ El resultado del flujo de datos será similar a:
 
 ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.024.png)
 
-![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.025.png)Flujo completo del caso 3
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.025.png)
+
+_Flujo completo del caso 3_
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-**Caso 4 - Fusionar datos**
+## Caso 4 - Fusionar datos
 
 En esta caso vamos a realizar los siguientes pasos:
 
@@ -303,7 +284,7 @@ En esta caso vamos a realizar los siguientes pasos:
 1. Fusionar los mensajes en varios ficheros, dependiendo de si contienen un error.
 1. Almacenar el fichero resultante en *MongoDB*.
 
-Recibiendo datos via HTTP
+### Recibir datos via HTTP
 
 1. Vamos a utilizar el procesador *ListenHTTP* para escuchar peticiones HTTP. Para ello, lo añadimos a nuestro flujo de trabajo y configuramos:
 - *Listening port* (puerto de escucha): 8081
@@ -312,12 +293,14 @@ Recibiendo datos via HTTP
 - Cambiamos el *Match Requirement* (requisito de coincidencia) a: content must contain match (no tienen que coincidir exactamente, sino contener el valor).
 - Y añadimos la propiedad textoError con el valor ERROR.
 
-![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.026.png)Propiedades de RouteOnContent
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.026.png)
+
+_Propiedades de RouteOnContent_
 
 Para poder probarlo, arrancamos el primer procesador, y desde un terminal, hacemos una petición a:
-
+```
 curl --data "texto de prueba" http://localhost:8081/mbd
-
+```
 Si comprobamos la cola, podremos ver como se ha creado un FF cuyo contenido es texto de prueba.
 
 Fusionando contenido
@@ -328,7 +311,9 @@ Si nos fijamos en las propiedades del procesador *RouteOnContent*, tenemos dos 
 
 Así pues, vamos a conectar las relaciones textoError y unmatched con *MergeContent*:
 
-![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.027.png)Conexión con MergeContent
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.027.png)
+
+_Conexión con MergeContent_
 
 Tras conectar los procesadores, vamos a configurar el procesador *MergeContent*:
 
@@ -342,20 +327,20 @@ Tras conectar los procesadores, vamos a configurar el procesador *MergeContent*
   - *Delimiter Strategy*: Text (para concatenar los fichero utilizando una nueva línea como carácter delimitador) y *Demarcator*: al abrir el campo, pulsar Shift/Mayús + Intro para poner el carácter del salto de línea.
 
 Para poder probar como se van creando y agrupando los mensajes, podemos ejecutar los siguientes comandos:
-
+```
 curl --data "texto de prueba" http://localhost:8081/mbd
-
 curl --data "este sí que tiene ERROR" http://localhost:8081/mbd
-
 curl --data "vaya ERROR más tonto" http://localhost:8081/mbd
-
 curl --data "nifi mola mucho" http://localhost:8081/mbd
+```
 
 Por ejemplo, si abrimos uno de los flujos podemos ver cómo se han agrupado varias peticiones en un único FF:
 
-![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.028.png)Resultado de MergeContent
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.028.png)
 
-Guardando el resultado a MongoDB
+_Resultado de MergeContent_
+
+### Guardar el resultado en una base de datos MongoDB
 
 Para almacenar el resultado de las fusiones anteriores, vamos a guardar los resultados en una colección de MongoDB.
 
@@ -402,13 +387,13 @@ Una vez creado el archivo, construimos el contenedor mediante:
 docker-compose -p nifimongodb up -d
 
 También se puede instalar con apt:
-
+```
 sudo apt update
 sudo apt install -y mongodb
 sudo systemctl enable mongodb
 sudo systemctl restart mongodb
 sudo systemctl status mongodb
-
+```
 Para poder meter los mensajes en *MongoDB*, vamos a preparar el contenido para que esté en formato JSON. Además del contenido, vamos a crear un atributo con el nombre del enrutador utilizado para posteriormente poder filtrar los mensajes de error.
 
 Para poder crear el formato JSON, utilizaremos el procesador *AttributesToJSON*. Así pues, previamente necesitamos pasar los mensajes desde el contenido de los FF a los atributos (para ello, igual que en el caso anterior, utilizaremos el procesador *ExtracText*). A su vez, también crearemos un nuevo atributo con el nombre del enrutador mediante el procesador *UpdateAttribute*.
@@ -417,7 +402,7 @@ El resultado final será similar al siguiente flujo:
 
 ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.029.png)
 
-Resultado completo del caso 4
+_Resultado completo del caso 4_
 
 5. Utilizamos el procesador *ExtracText* para pasar el contenido a los atributos. Dentro de las propiedades configuraremos:
    1. *Enable DOTALL mode*: true, para que incluya los saltos de línea como contenido.
@@ -428,7 +413,9 @@ Una vez creado, conectamos *MergeContent* con *ExtractText* mediante la cone
 
 5. Añadimos el procesador *UpdateAttribute*, y dentro de las propiedades, añadirmos una nueva propiedad que vamos a llamar estado cuyo valor será ${RouteOnContent.Route}, es decir, le ponemos el mismo que contenga el atributo *RouteOnContent.Route*.
 
-   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.030.png)Creando el atributo estado
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.030.png)
+
+   _Creando el atributo estado_
 
    Una vez creado, conectamos *ExtractText* con *UpdateAttribute* mediante la conexión *matched*, y el resto de conexiones las marcamos para que autoterminen.
 
@@ -439,13 +426,17 @@ Una vez creado, conectamos *MergeContent* con *ExtractText* mediante la cone
    1. *Attribute List*: contenido,estado
    1. *Destination*: flowfile-content
 
-![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.031.png)Creando el atributo estado
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.031.png)
+
+_Creando el atributo estado_
 
 Una vez creado, conectamos *UpdateAttribute* con *AttributesToJSON* mediante la conexión *success*, y el resto de conexiones las marcamos para que autoterminen.
 
 Si ejecutamos los procesadores anteriores y comprobamos la salida, veremos como se están creando FF cuyo contenido es la petición introducida más el estado:
 
-![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.032.png)Mensaje JSON creado
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.032.png)
+
+_Mensaje JSON creado_
 
 5. Finalmente, añadimos el procesador *PutMongo* para introducir el contenido JSON. Las propiedades que hay que configurar son:
    1. Mongo URI: mongodb://localhost o mongodb://mongodb (en caso de que isntalemos con el docker-compose anterior)
@@ -455,26 +446,22 @@ Si ejecutamos los procesadores anteriores y comprobamos la salida, veremos como 
 En nuestro caso, hemos autoterminado la conexión success y reconectado con el mismo procesador la conexión failure.
 
 Si arrancamos el flujo de datos completo, y tras realizar las mismas peticiones de antes:
-
+```
 curl --data "texto de prueba" http://localhost:8081/mbd
-
 curl --data "este sí que tiene ERROR" http://localhost:8081/mbd
-
 curl --data "vaya ERROR más tonto" http://localhost:8081/mbd
-
 curl --data "nifi mola mucho" http://localhost:8081/mbd
+```
 
 Sólo nos queda entrar a *MongoDB* y comprobar que nos aparecen los datos:
-
+```
 \> use mbd
-
 switched to db mbd
 
 \> db.caso4.find()
-
 { "\_id" : ObjectId("6197cca29c63ec4e825b8232"), "contenido" : "este sí que tiene ERROR\nvaya ERROR más tonto", "estado" : "textoError" }
-
 { "\_id" : ObjectId("6197cca29c63ec4e825b8233"), "contenido" : "texto de prueba\nnifi mola mucho", "estado" : "unmatched" }
+```
 
 Actividades
 
