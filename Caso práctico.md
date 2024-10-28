@@ -10,7 +10,7 @@ Vamos a hacer un pequeño ejercicio con Nifi para familiarizarnos con el entorno
 A continuación detallamos los pasos a realizar:
 
 1. Seleccionamos un procesador (primer icono grande) y lo arrastramos en nuestra área de trabajo.
-1. Nos aparece un dialogo con tres partes diferenciadas:
+2. Nos aparece un dialogo con tres partes diferenciadas:
 
    ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.001.png)
    
@@ -23,20 +23,20 @@ A continuación detallamos los pasos a realizar:
 
 Así pues, buscamos el procesador *GetFile* y lo añadimos al flujo.
 
-1. Damos doble click sobre el elemento gráfico que representa nuestro procesador, y en la pestaña *properties* indicamos el directorio de entrada de donde tendrá que recoger el fichero mediante la propiedad *Input Directory*. En nuestro caso le pondremos el valor /home/iabd/Documentos/in:
+3. Damos doble click sobre el elemento gráfico que representa nuestro procesador, y en la pestaña *properties* indicamos el directorio de entrada de donde tendrá que recoger el fichero mediante la propiedad *Input Directory*. En nuestro caso le pondremos el valor /home/iabd/Documentos/in:
 
 ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.002.png)
 
 _Propiedades de GetFile_
 
 4. Ahora añadimos un nuevo procesador de tipo *PutFile*, y en las propiedades indicamos el directorio de salida con la propiedad *directory* a /home/iabd/Documentos/out.
-4. Si visualizamos la pestaña *Settings*, y nos centramos en el lado derecho, podemos configurar el comportamiento a seguir si el procesador se ejecuta correctamente (*success*) o falla (*failure*). Como vamos a hacer que este procesador sea el paso final, vamos a configurar que *autoterminen* marcando ambos casos:
+5. Si visualizamos la pestaña *Settings*, y nos centramos en el lado derecho, podemos configurar el comportamiento a seguir si el procesador se ejecuta correctamente (*success*) o falla (*failure*). Como vamos a hacer que este procesador sea el paso final, vamos a configurar que *autoterminen* marcando ambos casos:
 
 ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.003.png)
 
 _Finalización de PutFile_
 
-****Terminar las relaciones****
+***Terminar las relaciones***
 
 Si nos olvidamos de autoterminar las relaciones, o tenemos conexiones sin conectar, no podremos iniciar los procesadores implicados. Esto lo tenemos que realizar para todos los procesadores que tengamos en nuestro flujo de datos.
 
@@ -47,15 +47,15 @@ Si nos olvidamos de autoterminar las relaciones, o tenemos conexiones sin conect
 _Conexión mediante un conector entre procesadores_
 
 7. Antes de arrancar el primer procesador, creamos un pequeño fichero en el directorio que hemos puesto como entrada:
-
+```
 echo "Hola Mundo!" > hola.txt
-
+```
 8. Arrancamos el procesador mediante el botón derecho y la opción *Start*, y comprobamos que el fichero ya no está en la carpeta in, y que sí aparece en la cola (*Queued 1*). También podemos comprobar como tampoco está en la carpeta out.
-8. Finalmente, arrancamos el procesador de *Poner Fichero*, y veremos como la cola se vacía y el archivo aparece en la carpeta out.
+9. Finalmente, arrancamos el procesador de *Poner Fichero*, y veremos como la cola se vacía y el archivo aparece en la carpeta out.
 
 ¡Ya hemos creado nuestro primer flujo de datos!
 
-Gestion de los errores
+***Gestion de los errores***
 
 ¿Qué sucede si leemos dos veces un archivo con el mismo nombre? Tal como lo hemos definido en nuestro flujo, sólo se guardará la primera copia.
 
@@ -81,11 +81,15 @@ Nifi añade la propiedad filename a todos los FF. Esta propiedad la podemos co
 
 Así pues, vamos a colocar el procesador *UpdateAttribute* antes de colocar los archivos en la carpeta de conflictos:
 
-![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.007.png)Añadimos el procesador UpdateAttribute
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.007.png)
 
-Hemos decidido añadir como prefijo al nombre del archivo la fecha del sistema en formato de milisegundos, de manera que obtendremos archivos similares a 1637151536113-fichero.txt. Para ello, añadimos un nuevo atributo que llamaremos filename haciendo clic sobre el icono de + que aparece arriba a la derecha y en su valor utilizaremos la expresión ${now():toNumber()}-${filename}:
+_Añadimos el procesador UpdateAttribute_
 
-![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.008.png)Añadimos el procesador UpdateAttribute
+Hemos decidido añadir como prefijo al nombre del archivo la fecha del sistema en formato de milisegundos, de manera que obtendremos archivos similares a _ _1637151536113-fichero.txt_ _. Para ello, añadimos un nuevo atributo que llamaremos filename haciendo clic sobre el icono de + que aparece arriba a la derecha y en su valor utilizaremos la expresión ${now():toNumber()}-${filename}:
+
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.008.png)
+
+_Añadimos el procesador UpdateAttribute_
 
 
 ## Caso 2 - Trabajando con atributos
@@ -119,7 +123,9 @@ A continuación, en la configuración de planificación (*Scheduling*) de este p
    
 1. Si nos fijamos, a la izquierda del nombre del procesador, aparece un icono de aviso, el cual nos indica que necesitamos configurar el nuevo procesador, además de indicarnos que ambas relaciones no están conectadas o que faltan por autocompletar.
 
-   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.011.png)Avisos que aparecen
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.011.png)
+
+   _Avisos que aparecen_
 
    Para ello, configuramos la estrategia de reemplazo para que lo haga siempre (en el campo *Replacement Value* seleccionamos *Always Replace*), y al hacer esto el campo Search Value se invalida. Además, en el *Replacement Value* vamos a indicar simplemente prueba. Finalmente, marcamos para que autotermine la conexión failure.
 
@@ -137,7 +143,9 @@ A continuación, en la configuración de planificación (*Scheduling*) de este p
 
    ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.015.png)
 
-   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.016.gif)Acceso y visualización de la cola
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.016.gif)
+
+   _Acceso y visualización de la cola_
 
 1. Si ejecutamos el siguiente procesador, vemos que saca el FF de la cola anterior y aparecerá en la siguiente. Si comprobamos su valor, veremos que ha cambiado el valor original por prueba.
 
