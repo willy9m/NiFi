@@ -2,7 +2,7 @@
 
 - Linux/Unix/macOS
   - Descargar el archive de instalación del siguiente enlace:
-    <https://dlcdn.apache.org/nifi/1.27.0/nifi-1.27.0-bin.zip>
+    <https://archive.apache.org/dist/nifi/1.27.0/nifi-1.27.0-bin.zip>
   - Descomprimir en el Directorio de instalación deseado:
     unzip nifi-1.27.0-bin.zip
     cd nifi-1.27.0/
