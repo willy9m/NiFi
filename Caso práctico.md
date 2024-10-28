@@ -221,7 +221,9 @@ El linaje de los datos describe el origen, movimientos, características y calid
 
 Para ello, sobre el procesador final, con el botón derecho, elegimos la opción *View data provenance*. Si elegimos uno de los flujos, a la derecha de cada flujo, podemos pulsar sobre el primer icono podremos ver un grafo y un *slider* que modifica el grafo respecto al instante temporal (en cada uno de los pasos, podemos hacer doble clik y ver la información y el contenido del FF en dicho momento exacto):
 
-![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.022.gif)Linaje de los datos
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.022.gif)
+
+_Linaje de los datos_
 
 
 
