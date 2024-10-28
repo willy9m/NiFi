@@ -115,13 +115,13 @@ _Configuración del procesador GenerateFlowFile_
 
 A continuación, en la configuración de planificación (*Scheduling*) de este procesador vamos a indicar que se ejecute cada 3 segundos (en el campo *Run Schedule* le ponemos como valor 3 sec).
 
-1. Una vez tenemos listo el generador, vamos a añadir el procesador *ReplaceText* con el que cambiaremos el texto. Tras ello, conectamos ambos procesadores.
+2. Una vez tenemos listo el generador, vamos a añadir el procesador *ReplaceText* con el que cambiaremos el texto. Tras ello, conectamos ambos procesadores.
 
    ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.010.png)
 
    _Conexión con ReplaceText_
    
-1. Si nos fijamos, a la izquierda del nombre del procesador, aparece un icono de aviso, el cual nos indica que necesitamos configurar el nuevo procesador, además de indicarnos que ambas relaciones no están conectadas o que faltan por autocompletar.
+3. Si nos fijamos, a la izquierda del nombre del procesador, aparece un icono de aviso, el cual nos indica que necesitamos configurar el nuevo procesador, además de indicarnos que ambas relaciones no están conectadas o que faltan por autocompletar.
 
    ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.011.png)
 
@@ -129,13 +129,13 @@ A continuación, en la configuración de planificación (*Scheduling*) de este p
 
    Para ello, configuramos la estrategia de reemplazo para que lo haga siempre (en el campo *Replacement Value* seleccionamos *Always Replace*), y al hacer esto el campo Search Value se invalida. Además, en el *Replacement Value* vamos a indicar simplemente prueba. Finalmente, marcamos para que autotermine la conexión failure.
 
-1. Añadimos un procesador de tipo *LogAttribute* para mostrar en el log los atributos del FF, y conectamos el procesador anterior (*ReplaceText*) a éste mediante la relación success.
+4. Añadimos un procesador de tipo *LogAttribute* para mostrar en el log los atributos del FF, y conectamos el procesador anterior (*ReplaceText*) a éste mediante la relación success.
 
    ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.012.png)
 
    _Log con los atributos_
 
-1. Arrancamos el primer procesador y visualizamos la cola para comprobar qué ha generado. Para ello, sobre la cola elegimos la opción *list queue* para ver su contenido, y tras elegir uno, sobre el icono del ojo, visualizamos su contenido y comprobado que ha generado datos aleatorios:
+5. Arrancamos el primer procesador y visualizamos la cola para comprobar qué ha generado. Para ello, sobre la cola elegimos la opción *list queue* para ver su contenido, y tras elegir uno, sobre el icono del ojo, visualizamos su contenido y comprobado que ha generado datos aleatorios:
 
    ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.013.png)
 
@@ -147,7 +147,7 @@ A continuación, en la configuración de planificación (*Scheduling*) de este p
 
    _Acceso y visualización de la cola_
 
-1. Si ejecutamos el siguiente procesador, vemos que saca el FF de la cola anterior y aparecerá en la siguiente. Si comprobamos su valor, veremos que ha cambiado el valor original por prueba.
+6. Si ejecutamos el siguiente procesador, vemos que saca el FF de la cola anterior y aparecerá en la siguiente. Si comprobamos su valor, veremos que ha cambiado el valor original por prueba.
 
    ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.017.png)
 
@@ -189,7 +189,7 @@ Key: 'uuid'
 
 \--------------------------------------------------
 
-Añadiendo un atributo
+**Añadiendo un atributo**
 
 Ahora vamos a extraer el contenido del FF a un atributo mediante el procesador *ExtractText*.
 
@@ -207,7 +207,7 @@ Ahora vamos a extraer el contenido del FF a un atributo mediante el procesador 
 
    _Flujo completo del caso 2_
 
-7. Finalmente, ejecutamos todos los procesadores y comprobamos como en el log aparece el nuevo atributo creado. También podemos acceder a la cola, y en la parte izquierda de cada flujo, en el icono de la i, pulsar y comprobar la pestaña *Atributes*.
+8. Finalmente, ejecutamos todos los procesadores y comprobamos como en el log aparece el nuevo atributo creado. También podemos acceder a la cola, y en la parte izquierda de cada flujo, en el icono de la i, pulsar y comprobar la pestaña *Atributes*.
 
    ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.021.png)Comprobación de los atributos de un FF
 
@@ -246,7 +246,7 @@ Para ello, tendremos que leer el fichero haciendo uso del procesador *GetFile*,
 ### Lectura y división
 
 1. Así pues, comenzamos leyendo el fichero con el procesador *GetFile*. En este caso vamos a dejar la opción *keep source file* a *true* para que no lo elimine.
-1. Mediante el procesador *SplitRecord*, vamos a separar cada fila del CSV a un FF. Para ello, primero hemos de crear un *RecordReader* y un *RecordWriter* para que sepa interactuar con el CSV (*Nifi* ya tiene varios implementados que podemos utilizar). Así pues:
+2. Mediante el procesador *SplitRecord*, vamos a separar cada fila del CSV a un FF. Para ello, primero hemos de crear un *RecordReader* y un *RecordWriter* para que sepa interactuar con el CSV (*Nifi* ya tiene varios implementados que podemos utilizar). Así pues:
    1. En el *Record Reader*, seleccionamos *Create new service*, y elegimos *CVSReader*.
    1. A su vez, en el *Record Writer* elegimos *CVSRecordSetWriter*.
 
@@ -271,7 +271,7 @@ Finalmente, en el campo *Records per Split* le indicamos 1 para que coloque 
 
    También podríamos haber filtrado los campos para recuperar menos contenido con una consulta similar a ```select ProductID, Date from FlowFile .....``` Con este procesador podemos filtrar, hacer agrupaciones, cálculos, del mismo modo que lo hacemos con SQL.
 
-3. Finalmente, igual que hicimos en el caso 1, vamos a cambiarle el nombre a cada FF para generar un archivo por cada resultado mediante *UpdateAttribute* y persistimos los datos con *PutFile*.
+4. Finalmente, igual que hicimos en el caso 1, vamos a cambiarle el nombre a cada FF para generar un archivo por cada resultado mediante *UpdateAttribute* y persistimos los datos con *PutFile*.
 
 El resultado del flujo de datos será similar a:
 
@@ -419,7 +419,7 @@ _Resultado completo del caso 4_
 
 Una vez creado, conectamos *MergeContent* con *ExtractText* mediante la conexión *merged*, y el resto de conexiones las marcamos para que autoterminen.
 
-5. Añadimos el procesador *UpdateAttribute*, y dentro de las propiedades, añadirmos una nueva propiedad que vamos a llamar estado cuyo valor será ${RouteOnContent.Route}, es decir, le ponemos el mismo que contenga el atributo *RouteOnContent.Route*.
+6. Añadimos el procesador *UpdateAttribute*, y dentro de las propiedades, añadirmos una nueva propiedad que vamos a llamar estado cuyo valor será ${RouteOnContent.Route}, es decir, le ponemos el mismo que contenga el atributo *RouteOnContent.Route*.
 
    ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.030.png)
 
@@ -427,7 +427,7 @@ Una vez creado, conectamos *MergeContent* con *ExtractText* mediante la cone
 
    Una vez creado, conectamos *ExtractText* con *UpdateAttribute* mediante la conexión *matched*, y el resto de conexiones las marcamos para que autoterminen.
 
-5. A continuación, vamos a utilizar el procesador *AttributesToJSON* para pasar los atributos contenidoy estado como contenido de un FF en formato JSON.
+7. A continuación, vamos a utilizar el procesador *AttributesToJSON* para pasar los atributos contenidoy estado como contenido de un FF en formato JSON.
 
    Para ello, configuramos las propiedades:
 
@@ -446,7 +446,7 @@ Si ejecutamos los procesadores anteriores y comprobamos la salida, veremos como 
 
 _Mensaje JSON creado_
 
-5. Finalmente, añadimos el procesador *PutMongo* para introducir el contenido JSON. Las propiedades que hay que configurar son:
+8. Finalmente, añadimos el procesador *PutMongo* para introducir el contenido JSON. Las propiedades que hay que configurar son:
    1. Mongo URI: mongodb://localhost o mongodb://mongodb (en caso de que isntalemos con el docker-compose anterior)
    1. Mongo Database Name: mbd
    1. Mongo Collection Name: caso4
@@ -471,7 +471,7 @@ switched to db mbd
 { "\_id" : ObjectId("6197cca29c63ec4e825b8233"), "contenido" : "texto de prueba\nnifi mola mucho", "estado" : "unmatched" }
 ```
 
-Actividades
+### Actividades
 
 1. Realiza los casos de uso del 1 al 3. En la entrega debes adjuntar una captura de pantalla donde se vea el flujo de datos completo con una nota con tu nombre, y adjuntar la definición de cada flujo (sobre el área de trabajo, con el botón derecho, *Download flow definition*).
 1. (opcional) Realiza el caso de uso 4.
