@@ -359,41 +359,28 @@ Suponemos que ya tenemos instalado *MongoDB* en nuestro sistema. Si no, podemo
 Si queremos utilizarlo mediante Docker, necesitamos que MongoDB y Nifi estén dentro del mismo contenedor. Para ello, podemos configurarlo mediante el siguiente archivo [docker-compose.yml]:
 
 **docker-compose.yml**
-
+```
 services:
-
-`    `nifi:
-
-`        `ports:
-
-`            `- "8443:8443"
-
-`        `image: apache/nifi:latest
-
-`        `environment:
-
-`            `SINGLE\_USER\_CREDENTIALS\_USERNAME: nifi
-
-`            `SINGLE\_USER\_CREDENTIALS\_PASSWORD: nifinifinifi
-
-`            `NIFI\_JVM\_HEAP\_MAX: 2g
-
-`        `links:
-
-`            `- mongodb
-
-`    `mongodb:
-
-`        `ports:
-
-`            `- "27017:27017"
-
-`        `image: mongo:latest
+  nifi:
+    ports:
+      - "8443:8443"
+    image: apache/nifi:latest
+    environment:
+      SINGLE\_USER\_CREDENTIALS\_USERNAME: nifi
+      SINGLE\_USER\_CREDENTIALS\_PASSWORD: nifinifinifi
+      NIFI\_JVM\_HEAP\_MAX: 2g
+    links:
+      - mongodb
+  mongodb:
+    ports:
+      - "27017:27017"
+    image: mongo:latest
+````
 
 Una vez creado el archivo, construimos el contenedor mediante:
-
+```
 docker-compose -p nifimongodb up -d
-
+```
 También se puede instalar con apt:
 ```
 sudo apt update
