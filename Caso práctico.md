@@ -1,5 +1,6 @@
 # Caso práctico NiFi
-Caso 1 - Moviendo datos[¶](https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta03nifi1.html#caso-1-moviendo-datos "Permanent link")
+
+**Caso 1 - Mover datos**
 
 Vamos a hacer un pequeño ejercicio con Nifi para familiarizarnos con el entorno desarrollando un flujo de datos sencillo que mueva un fichero de un directorio a otro.
 
@@ -8,7 +9,10 @@ A continuación detallamos los pasos a realizar:
 1. Seleccionamos un procesador (primer icono grande) y lo arrastramos en nuestra área de trabajo.
 1. Nos aparece un dialogo con tres partes diferenciadas:
 
-   ![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.001.png)Diálogo de elección de procesador
+   ![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.001.png)
+   
+   Diálogo de elección de procesador
+   
 
    1. A la izquierda una nube de etiquetas para poder filtrar los procesador.
    1. Arriba a la derecha tenemos un buscador para buscar procesadores por su nombre
@@ -18,7 +22,9 @@ Así pues, buscamos el procesador *GetFile* y lo añadimos al flujo.
 
 1. Damos doble click sobre el elemento gráfico que representa nuestro procesador, y en la pestaña *properties* indicamos el directorio de entrada de donde tendrá que recoger el fichero mediante la propiedad *Input Directory*. En nuestro caso le pondremos el valor /home/iabd/Documentos/in:
 
-![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.002.png)Propiedades de GetFile
+![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.002.png)
+
+Propiedades de GetFile
 
 4. Ahora añadimos un nuevo procesador de tipo *PutFile*, y en las propiedades indicamos el directorio de salida con la propiedad *directory* a /home/iabd/Documentos/out.
 4. Si visualizamos la pestaña *Settings*, y nos centramos en el lado derecho, podemos configurar el comportamiento a seguir si el procesador se ejecuta correctamente (*success*) o falla (*failure*). Como vamos a hacer que este procesador sea el paso final, vamos a configurar que *autoterminen* marcando ambos casos:
@@ -27,7 +33,7 @@ Así pues, buscamos el procesador *GetFile* y lo añadimos al flujo.
 
 Finalización de PutFile
 
-**Terminar las relaciones**
+****Terminar las relaciones****
 
 Si nos olvidamos de autoterminar las relaciones, o tenemos conexiones sin conectar, no podremos iniciar los procesadores implicados. Esto lo tenemos que realizar para todos los procesadores que tengamos en nuestro flujo de datos.
 
@@ -45,7 +51,7 @@ echo "Hola Mundo!" > hola.txt
 
 ¡Ya hemos creado nuestro primer flujo de datos!
 
-Gestionando los errores[¶](https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta03nifi1.html#gestionando-los-errores "Permanent link")
+Gestion de los errores
 
 ¿Qué sucede si leemos dos veces un archivo con el mismo nombre? Tal como lo hemos definido en nuestro flujo, sólo se guardará la primera copia.
 
@@ -89,11 +95,11 @@ Hemos decidido añadir como prefijo al nombre del archivo la fecha del sistema e
 
 
 
-Caso 2 - Trabajando con atributos[¶](https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta03nifi1.html#caso-2-trabajando-con-atributos "Permanent link")
+**Caso 2 - Trabajando con atributos**
 
 Cada vez que se generan FlowFile (representa un registro de datos que viaja por el flujo) estos van a tener asignados ciertos atributos por defecto. Entre estos atributos están el UUID o identificador único, su *timestamp* y el tamaño del fichero. Como ya hemos visto, mediante el uso de procesadores podremos modificar estos o añadir nuevos atributos.
 
-Generando contenido[¶](https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta03nifi1.html#generando-contenido "Permanent link")
+Generando contenido
 
 Vamos a ver cómo hacerlo realizando los siguientes pasos:
 
@@ -175,7 +181,7 @@ Key: 'uuid'
 
 \--------------------------------------------------
 
-Añadiendo un atributo[¶](https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta03nifi1.html#anadiendo-un-atributo "Permanent link")
+Añadiendo un atributo
 
 Ahora vamos a extraer el contenido del FF a un atributo mediante el procesador *ExtractText*.
 
@@ -195,7 +201,7 @@ Ahora vamos a extraer el contenido del FF a un atributo mediante el procesador 
 
    ![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.021.png)Comprobación de los atributos de un FF
 
-Linaje de los datos[¶](https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta03nifi1.html#linaje-de-los-datos "Permanent link")
+Linaje de los datos
 
 Para comprobar el dato final, es muy útil utilizar la opción de *Data provenance*, la cual nos ofrece un linaje de los datos.
 
@@ -222,9 +228,9 @@ Para ello, sobre el procesador final, con el botón derecho, elegimos la opción
 
 
 
-Caso 3 - Filtrado de datos[¶](https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta03nifi1.html#caso-3-filtrado-de-datos "Permanent link")
+**Caso 3 - Filtrado de datos**
 
-En este caso, vamos a coger los datos de [ventas](https://aitor-medrano.github.io/bigdata2122/recursos/pdi/pdi_sales_small.csv) que ya utilizamos en la sesión de *Pentaho*, el cual tiene la siguiente estructura:
+En este caso, vamos a coger los datos de [ventas](https://aitor-medrano.github.io/bigdata2122/recursos/pdi/pdi_sales_small.csv), el cual tiene la siguiente estructura:
 
 **pdi\_sales\_small.csv**
 
@@ -240,7 +246,7 @@ Utilizando Nifi, vamos a crear un nuevo fichero CSV que contenga únicamente los
 
 Para ello, tendremos que leer el fichero haciendo uso del procesador *GetFile*, separar cada fila en un FF mediante *SplitRecord*, filtrar los datos usando el procesador *QueryRecord* y finalmente los almacenaremos en disco gracias al procesador *PutFile*.
 
-Lectura y división[¶](https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta03nifi1.html#lectura-y-division "Permanent link")
+Lectura y división
 
 1. Así pues, comenzamos leyendo el fichero con el procesador *GetFile*. En este caso vamos a dejar la opción *keep source file* a *true* para que no lo elimine.
 1. Mediante el procesador *SplitRecord*, vamos a separar cada fila del CSV a un FF. Para ello, primero hemos de crear un *RecordReader* y un *RecordWriter* para que sepa interactuar con el CSV (*Nifi* ya tiene varios implementados que podemos utilizar). Así pues:
@@ -253,7 +259,7 @@ Para configurar estos servicios, pulsaremos sobre la flecha, y veremos la pantal
 
 Finalmente, en el campo *Records per Split* le indicamos 1 para que coloque cada fila en un FF.
 
-Filtrado de FF[¶](https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta03nifi1.html#filtrado-de-ff "Permanent link")
+Filtrado de FF
 
 3. En este paso, mediante el procesador *QueryRecord* vamos a ejecutar una consulta SQL contra el FF. El resultado del nuevo FF será el resultado de la consulta. En nuestro caso, como hemos comentado antes, vamos a quedarnos con las ventas de más de una unidad realizadas en Francia.
 
@@ -288,7 +294,7 @@ El resultado del flujo de datos será similar a:
 
 
 
-Caso 4 - Fusionar datos[¶](https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta03nifi1.html#caso-4-fusionar-datos "Permanent link")
+**Caso 4 - Fusionar datos**
 
 En esta caso vamos a realizar los siguientes pasos:
 
@@ -297,7 +303,7 @@ En esta caso vamos a realizar los siguientes pasos:
 1. Fusionar los mensajes en varios ficheros, dependiendo de si contienen un error.
 1. Almacenar el fichero resultante en *MongoDB*.
 
-Recibiendo datos via HTTP[¶](https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta03nifi1.html#recibiendo-datos-via-http "Permanent link")
+Recibiendo datos via HTTP
 
 1. Vamos a utilizar el procesador *ListenHTTP* para escuchar peticiones HTTP. Para ello, lo añadimos a nuestro flujo de trabajo y configuramos:
 - *Listening port* (puerto de escucha): 8081
@@ -314,7 +320,7 @@ curl --data "texto de prueba" http://localhost:8081/mbd
 
 Si comprobamos la cola, podremos ver como se ha creado un FF cuyo contenido es texto de prueba.
 
-Fusionando contenido[¶](https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta03nifi1.html#fusionando-contenido "Permanent link")
+Fusionando contenido
 
 Si nos fijamos en las propiedades del procesador *RouteOnContent*, tenemos dos flujos de salida textoError (para los mensajes que contienen el texto ERROR) y unmatched (para los que no).
 
@@ -349,7 +355,7 @@ Por ejemplo, si abrimos uno de los flujos podemos ver cómo se han agrupado vari
 
 ![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.028.png)Resultado de MergeContent
 
-Guardando el resultado a MongoDB[¶](https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta03nifi1.html#guardando-el-resultado-a-mongodb "Permanent link")
+Guardando el resultado a MongoDB
 
 Para almacenar el resultado de las fusiones anteriores, vamos a guardar los resultados en una colección de MongoDB.
 
@@ -357,7 +363,7 @@ Suponemos que ya tenemos instalado *MongoDB* en nuestro sistema. Si no, podemo
 
 **MongoDB + Nifi via Docker**
 
-Si queremos utilizarlo mediante Docker, necesitamos que MongoDB y Nifi estén dentro del mismo contenedor. Para ello, podemos configurarlo mediante el siguiente archivo [docker-compose.yml](https://aitor-medrano.github.io/bigdata2122/recursos/nifi-mongodb/docker-compose.yml) (si tuvieras alguna problema con la imagen de MongoDB y tu procesador, prueba a cambiar la línea 15 mongo:latest por mongo:4.4):
+Si queremos utilizarlo mediante Docker, necesitamos que MongoDB y Nifi estén dentro del mismo contenedor. Para ello, podemos configurarlo mediante el siguiente archivo [docker-compose.yml]:
 
 **docker-compose.yml**
 
@@ -470,7 +476,7 @@ switched to db mbd
 
 { "\_id" : ObjectId("6197cca29c63ec4e825b8233"), "contenido" : "texto de prueba\nnifi mola mucho", "estado" : "unmatched" }
 
-Actividades[¶](https://aitor-medrano.github.io/bigdata2122/apuntes/ingesta03nifi1.html#actividades "Permanent link")
+Actividades
 
 1. Realiza los casos de uso del 1 al 3. En la entrega debes adjuntar una captura de pantalla donde se vea el flujo de datos completo con una nota con tu nombre, y adjuntar la definición de cada flujo (sobre el área de trabajo, con el botón derecho, *Download flow definition*).
 1. (opcional) Realiza el caso de uso 4.
