@@ -38,7 +38,7 @@ See the [System Properties](https://nifi.apache.org/documentation/nifi-2.0.0-M3
 
 
 
-Puesta en marcha
+**Puesta en marcha**
 
 Para instalar Nifi, sólo hemos de descargar la última versión desde [https://nifi.apache.org](https://nifi.apache.org/) (en nuestro caso hemos descargado la version 1.27) y tras descomprimirla, debemos crear unas credenciales de acceso. Para ello, ejecutaremos el comando ./nifi.sh set-single-user-credentials <username> <password> indicando el usuario y contraseña que queramos.
 
@@ -52,7 +52,7 @@ A continuación, ya podemos arrancar Nifi ejecutando el comando ./nifi.sh start
 
 Si queremos detenerlo ejecutaremos ./bin/nifi.sh stop.
 
-Instalación con AWS
+**Instalación con AWS**
 
 Si quieres trabajar con una máquina en AWS has de seguir los siguientes pasos:
 
@@ -67,7 +67,7 @@ Si quieres trabajar con una máquina en AWS has de seguir los siguientes pasos:
 1. ./bin/nifi.sh set-single-user-credentials nifi nifinifinifi
 1. Acceder desde un navegador a la dirección [https://ipPublicaAWS:8443/nifi](https://ippublicaaws:8443/nifi)
 
-Instalación con Docker
+**Instalación con Docker**
 
 Si no queremos instalarlo y hacer uso de un contenedor mediante Docker, ejecutaremos el siguiente comando:
 
