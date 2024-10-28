@@ -9,7 +9,7 @@ A continuación detallamos los pasos a realizar:
 1. Seleccionamos un procesador (primer icono grande) y lo arrastramos en nuestra área de trabajo.
 1. Nos aparece un dialogo con tres partes diferenciadas:
 
-   ![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.001.png)
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.001.png)
    
    Diálogo de elección de procesador
    
@@ -22,14 +22,14 @@ Así pues, buscamos el procesador *GetFile* y lo añadimos al flujo.
 
 1. Damos doble click sobre el elemento gráfico que representa nuestro procesador, y en la pestaña *properties* indicamos el directorio de entrada de donde tendrá que recoger el fichero mediante la propiedad *Input Directory*. En nuestro caso le pondremos el valor /home/iabd/Documentos/in:
 
-![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.002.png)
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.002.png)
 
 Propiedades de GetFile
 
 4. Ahora añadimos un nuevo procesador de tipo *PutFile*, y en las propiedades indicamos el directorio de salida con la propiedad *directory* a /home/iabd/Documentos/out.
 4. Si visualizamos la pestaña *Settings*, y nos centramos en el lado derecho, podemos configurar el comportamiento a seguir si el procesador se ejecuta correctamente (*success*) o falla (*failure*). Como vamos a hacer que este procesador sea el paso final, vamos a configurar que *autoterminen* marcando ambos casos:
 
-![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.003.png)
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.003.png)
 
 Finalización de PutFile
 
@@ -39,7 +39,7 @@ Si nos olvidamos de autoterminar las relaciones, o tenemos conexiones sin conect
 
 6. Unimos ambos procesadores creando una conexión. Para ello, tras pulsar sobre el icono de la flecha que aparece al dejar el ratón sobre el primer procesador y lo arrastramos hasta el segundo.
 
-![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.004.png)
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.004.png)
 Conexión mediante un conector entre procesadores
 
 7. Antes de arrancar el primer procesador, creamos un pequeño fichero en el directorio que hemos puesto como entrada:
@@ -57,7 +57,7 @@ Gestion de los errores
 
 Si vamos a la pestaña *Properties* del procesador *PonerFichero*, podemos cambiar este comportamiento en la propiedad *Conflict Resolution Strategy* a *replace*, de esta manera, se guardará el último archivo.
 
-![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.005.png)
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.005.png)
 
 Propiedades de PutFile - gestión de conflictos
 
@@ -65,7 +65,7 @@ Realmente, en vez de decidir si lo ignora o lo sobreescribe, lo ideal es definir
 
 Así pues, vamos a quitar la *autoterminación* que antes habíamos puesto al procesador de *PonerFichero*, para que cuando falle, redirija el flujo a un nuevo procesador *PutFile* que coloque el archivo en una nueva carpeta (en nuestro caso en /home/iabd/Documentos/conflictos):
 
-![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.006.png)
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.006.png)
 
 Flujo failure para los ficheros repetidos
 
@@ -77,11 +77,11 @@ Nifi añade la propiedad filename a todos los FF. Esta propiedad la podemos co
 
 Así pues, vamos a colocar el procesador *UpdateAttribute* antes de colocar los archivos en la carpeta de conflictos:
 
-![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.007.png)Añadimos el procesador UpdateAttribute
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.007.png)Añadimos el procesador UpdateAttribute
 
 Hemos decidido añadir como prefijo al nombre del archivo la fecha del sistema en formato de milisegundos, de manera que obtendremos archivos similares a 1637151536113-fichero.txt. Para ello, añadimos un nuevo atributo que llamaremos filename haciendo clic sobre el icono de + que aparece arriba a la derecha y en su valor utilizaremos la expresión ${now():toNumber()}-${filename}:
 
-![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.008.png)Añadimos el procesador UpdateAttribute
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.008.png)Añadimos el procesador UpdateAttribute
 
 
 
@@ -112,7 +112,7 @@ Vamos a ver cómo hacerlo realizando los siguientes pasos:
    1. Data Format: Text
    1. Unique Flowfiles: true e indicamos que los FF van a ser únicos.
 
-![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.009.png)
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.009.png)
 
 Configuración del procesador GenerateFlowFile
 
@@ -120,30 +120,30 @@ A continuación, en la configuración de planificación (*Scheduling*) de este p
 
 1. Una vez tenemos listo el generador, vamos a añadir el procesador *ReplaceText* con el que cambiaremos el texto. Tras ello, conectamos ambos procesadores.
 
-   ![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.010.png)Conexión con ReplaceText
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.010.png)Conexión con ReplaceText
 1. Si nos fijamos, a la izquierda del nombre del procesador, aparece un icono de aviso, el cual nos indica que necesitamos configurar el nuevo procesador, además de indicarnos que ambas relaciones no están conectadas o que faltan por autocompletar.
 
-   ![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.011.png)Avisos que aparecen
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.011.png)Avisos que aparecen
 
    Para ello, configuramos la estrategia de reemplazo para que lo haga siempre (en el campo *Replacement Value* seleccionamos *Always Replace*), y al hacer esto el campo Search Value se invalida. Además, en el *Replacement Value* vamos a indicar simplemente prueba. Finalmente, marcamos para que autotermine la conexión failure.
 
 1. Añadimos un procesador de tipo *LogAttribute* para mostrar en el log los atributos del FF, y conectamos el procesador anterior (*ReplaceText*) a éste mediante la relación success.
 
-   ![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.012.png)Log con los atributos
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.012.png)Log con los atributos
 
 1. Arrancamos el primer procesador y visualizamos la cola para comprobar qué ha generado. Para ello, sobre la cola elegimos la opción *list queue* para ver su contenido, y tras elegir uno, sobre el icono del ojo, visualizamos su contenido y comprobado que ha generado datos aleatorios:
 
-   ![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.013.png)
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.013.png)
 
-   ![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.014.png)
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.014.png)
 
-   ![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.015.png)
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.015.png)
 
-   ![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.016.gif)Acceso y visualización de la cola
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.016.gif)Acceso y visualización de la cola
 
 1. Si ejecutamos el siguiente procesador, vemos que saca el FF de la cola anterior y aparecerá en la siguiente. Si comprobamos su valor, veremos que ha cambiado el valor original por prueba.
 
-   ![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.017.png)Resultado de visualizar la cola tras ReplaceText
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.017.png)Resultado de visualizar la cola tras ReplaceText
 
 Si accedemos al log de la aplicación (archivo nifi-app.log dentro de la carpeta logs) veremos mensajes similares a:
 
@@ -187,19 +187,19 @@ Ahora vamos a extraer el contenido del FF a un atributo mediante el procesador 
 
 7. En las propiedades, creamos una nueva propiedad (botón + de la esquina superior derecha) que llamaremos contenido, y en cuyo valor vamos a poner la expresión .\* que indica que queremos que coincida con todo.
 
-   ![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.018.png)
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.018.png)
 
-   ![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.019.gif)Añadimos la propiedad contenido a ExtractText
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.019.gif)Añadimos la propiedad contenido a ExtractText
 
 7. Una vez creado, vamos a colocar este procesador entre los dos anteriores (para el segundo con el caso matched, que es cuando ha coincidido con la expresión regular). En la conexión unmatched la marcamos para que autotermine, y comprobamos que no tenemos ningún advertencia en ningún procesador.
 
-   ![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.020.png)
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.020.png)
 
    Flujo completo del caso 2
 
 7. Finalmente, ejecutamos todos los procesadores y comprobamos como en el log aparece el nuevo atributo creado. También podemos acceder a la cola, y en la parte izquierda de cada flujo, en el icono de la i, pulsar y comprobar la pestaña *Atributes*.
 
-   ![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.021.png)Comprobación de los atributos de un FF
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.021.png)Comprobación de los atributos de un FF
 
 Linaje de los datos
 
@@ -211,7 +211,7 @@ El linaje de los datos describe el origen, movimientos, características y calid
 
 Para ello, sobre el procesador final, con el botón derecho, elegimos la opción *View data provenance*. Si elegimos uno de los flujos, a la derecha de cada flujo, podemos pulsar sobre el primer icono podremos ver un grafo y un *slider* que modifica el grafo respecto al instante temporal (en cada uno de los pasos, podemos hacer doble clik y ver la información y el contenido del FF en dicho momento exacto):
 
-![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.022.gif)Linaje de los datos
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.022.gif)Linaje de los datos
 
 
 
@@ -230,7 +230,7 @@ Para ello, sobre el procesador final, con el botón derecho, elegimos la opción
 
 **Caso 3 - Filtrado de datos**
 
-En este caso, vamos a coger los datos de [ventas](https://aitor-medrano.github.io/bigdata2122/recursos/pdi/pdi_sales_small.csv), el cual tiene la siguiente estructura:
+En este caso, vamos a coger los datos de [ventas](dataset/ventas_paises.csv), el cual tiene la siguiente estructura:
 
 **pdi\_sales\_small.csv**
 
@@ -255,7 +255,7 @@ Lectura y división
 
 Para configurar estos servicios, pulsaremos sobre la flecha, y veremos la pantalla de configuración. Para cada uno de ellos, tendremos otros tres iconos: la rueda para configurar, el rayo para activar/desactivar el servicio y la papelera para eliminarlo. Así, pues, tras comprobar los valores de *CVSReader* y *CSVSWriter* (indicamos el ; como separador de campos tanto para la lectura como la escritura de CSV en el campo *value separator y marcamos como* true *que el archivo contiene la primera fila con encabezados (*treat first line as header\*)), pulsamos sobre el rayo para activar ambos servicios.
 
-![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.023.gif)Configuración y activación de Split Record
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.023.gif)Configuración y activación de Split Record
 
 Finalmente, en el campo *Records per Split* le indicamos 1 para que coloque cada fila en un FF.
 
@@ -275,9 +275,9 @@ Filtrado de FF
 
 El resultado del flujo de datos será similar a:
 
-![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.024.png)
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.024.png)
 
-![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.025.png)Flujo completo del caso 3
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.025.png)Flujo completo del caso 3
 
 
 
@@ -312,7 +312,7 @@ Recibiendo datos via HTTP
 - Cambiamos el *Match Requirement* (requisito de coincidencia) a: content must contain match (no tienen que coincidir exactamente, sino contener el valor).
 - Y añadimos la propiedad textoError con el valor ERROR.
 
-![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.026.png)Propiedades de RouteOnContent
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.026.png)Propiedades de RouteOnContent
 
 Para poder probarlo, arrancamos el primer procesador, y desde un terminal, hacemos una petición a:
 
@@ -328,7 +328,7 @@ Si nos fijamos en las propiedades del procesador *RouteOnContent*, tenemos dos 
 
 Así pues, vamos a conectar las relaciones textoError y unmatched con *MergeContent*:
 
-![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.027.png)Conexión con MergeContent
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.027.png)Conexión con MergeContent
 
 Tras conectar los procesadores, vamos a configurar el procesador *MergeContent*:
 
@@ -353,7 +353,7 @@ curl --data "nifi mola mucho" http://localhost:8081/mbd
 
 Por ejemplo, si abrimos uno de los flujos podemos ver cómo se han agrupado varias peticiones en un único FF:
 
-![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.028.png)Resultado de MergeContent
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.028.png)Resultado de MergeContent
 
 Guardando el resultado a MongoDB
 
@@ -415,7 +415,7 @@ Para poder crear el formato JSON, utilizaremos el procesador *AttributesToJSON*
 
 El resultado final será similar al siguiente flujo:
 
-![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.029.png)
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.029.png)
 
 Resultado completo del caso 4
 
@@ -428,7 +428,7 @@ Una vez creado, conectamos *MergeContent* con *ExtractText* mediante la cone
 
 5. Añadimos el procesador *UpdateAttribute*, y dentro de las propiedades, añadirmos una nueva propiedad que vamos a llamar estado cuyo valor será ${RouteOnContent.Route}, es decir, le ponemos el mismo que contenga el atributo *RouteOnContent.Route*.
 
-   ![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.030.png)Creando el atributo estado
+   ![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.030.png)Creando el atributo estado
 
    Una vez creado, conectamos *ExtractText* con *UpdateAttribute* mediante la conexión *matched*, y el resto de conexiones las marcamos para que autoterminen.
 
@@ -439,13 +439,13 @@ Una vez creado, conectamos *MergeContent* con *ExtractText* mediante la cone
    1. *Attribute List*: contenido,estado
    1. *Destination*: flowfile-content
 
-![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.031.png)Creando el atributo estado
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.031.png)Creando el atributo estado
 
 Una vez creado, conectamos *UpdateAttribute* con *AttributesToJSON* mediante la conexión *success*, y el resto de conexiones las marcamos para que autoterminen.
 
 Si ejecutamos los procesadores anteriores y comprobamos la salida, veremos como se están creando FF cuyo contenido es la petición introducida más el estado:
 
-![](Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.032.png)Mensaje JSON creado
+![](images/Aspose.Words.c9cf873b-8478-4940-9a53-1c456c0f532d.032.png)Mensaje JSON creado
 
 5. Finalmente, añadimos el procesador *PutMongo* para introducir el contenido JSON. Las propiedades que hay que configurar son:
    1. Mongo URI: mongodb://localhost o mongodb://mongodb (en caso de que isntalemos con el docker-compose anterior)
