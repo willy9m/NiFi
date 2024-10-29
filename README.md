@@ -2,6 +2,7 @@
 
 - Linux/Unix/macOS
   - Descargar el archive de instalación del siguiente enlace:
+
     <https://archive.apache.org/dist/nifi/1.27.0/nifi-1.27.0-bin.zip>
   - Descomprimir en el Directorio de instalación deseado:
     ```
@@ -24,23 +25,6 @@
   - Navegar hasta el siguiente directorio <installdir>/bin
   - Hacer doble click sobre run-nifi.bat. Esto iniciará NiFi en Segundo plano es esperará a la combinación Ctrl-C para ejecutar la parada de NiFi
   - Para ver el estado actual de NiFi, hacer doble click sobre status-nifi.bat
-
-Cuando NiFi inicia por primera vez crea las siguientes carpetas:
-
-- content\_repository
-- database\_repository
-- flowfile\_repository
-- provenance\_repository
-- work directory
-- logs directory
-- Within the conf directory, the *flow.json.gz* file is created
-
-||For security purposes, when no security configuration is provided NiFi will now bind to 127.0.0.1 by default and the UI will only be accessible through this loopback interface. HTTPS properties should be configured to access NiFi from other interfaces. See the [Security Configuration](https://nifi.apache.org/documentation/nifi-2.0.0-M3/html/administration-guide.html#security_configuration) for guidance on how to do this.|
-| :- | :- |
-
-See the [System Properties](https://nifi.apache.org/documentation/nifi-2.0.0-M3/html/administration-guide.html#system_properties) section of this guide for more information about configuring NiFi repositories and configuration files.
-
-
 
 **Puesta en marcha**
 
