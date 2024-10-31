@@ -13,8 +13,11 @@ Crearemos un topic en el cluster kafka de la siguiente forma mbdXX_nifi_ventas
    _Ingesta de datos desde NiFi a Kafka_
    
 **Pasos recomendados**
+
 1- Crear topic en kafka de nombre mbdXX_nifi_ventas
+
 2- Montar el flujo en NiFi para publicar mensajes en kafka
+
 3- Leer datos del topic de kafka para comprobar que se está escribiendo con json
    
 
@@ -27,14 +30,18 @@ Vamos a leer el topic del caso anterior desde Nifi para generar una tabla para l
 _Lectura de datos de kafka desde NiFi e ingesta en hive_
 
 **Pasos recomendados**
+
 1- Leer datos del topic creado en kafka
+
 2- filtrar datos de Canada, Mexico y separar ambos flujos
+
 3- Enviar datos a HDFS
+
 4- Crear tablas
 
 
-## Caso 3 - Kafka -> NiFi -> Solr
+<!-- ## Caso 3 - Kafka -> NiFi -> Solr -->
 
-En este caso, vamos a volver a leer los datos del topic creado en kafka y los vamos a enviar a Solr
+<!-- En este caso, vamos a volver a leer los datos del topic creado en kafka y los vamos a enviar a Solr -->
 
 ![](images/kafka-nifi-solr.png)
