@@ -53,48 +53,41 @@ A continuación detallamos los pasos a realizar:
    
    _Propiedades CSVReader_
 
-4. Y el CSVWriter
+4. Configuramos el AvroRecordSetWriter
 
-	![](images/Captura4.PNG)
-    ![](images/Captura5.PNG)
-	
-   _Propiedades CSVWriter_
+	![](images/Captura9.PNG)
+
+	_Propiedades Writer Avro_
    
 5. Activamos los Reader/Writer
 
     ![](images/Captura6.PNG)
 	
-   _Activar CSVWriter_
+   _Activar Writer_
    
-6. Por último marcamos la relacion parse.failure como terminada
+6. Marcamos la relacion parse.failure como terminada
 
 	![](images/Captura7.PNG)
 	
-   _Activar CSVWriter_
+   _Activar Writer_
 
+7. Ahora nos vamos a crear una ruta en hdfs donde enviar los datos. En mi caso es /user/jrfacosta/ventas_mbdw
+
+   	![](images/RutaHdfs.PNG)
+
+8. Le damos permisos para que pueda escribir nifi en el directorio
+
+	![](images/Permisos.png)
+	
+7. Por ultimo añadimos el procesador PutHDFS
+
+ 	![](images/PutHdfs.PNG)
+	
+   _Propiedades PutHDFS_
+
+   Para usar este procesador tenemos que descargarnos los archivos de core-site.xml y hdfs-site.xml de la ruta /tmp/jrfa del edge.
+   Y copiarlos en alguna ruta de nuestro pc que tendremos que indicarle al procesador.
    
-## Caso 2 - Split y Avro
 
-Vamos a leer hacer split de los mensajes anteriores y vamos a convertir los mensajes en avro para enviarlos a HDFS
+  	![](images/EnvioHdfs.PNG)
 
-1. Seleccionamos el procesador SplitRecord y lo arrastramos en nuestra área de trabajo.
-
-2. Configuramos las propiedades del procesador de la siguiente forma:
-	
-	![](images/Captura8.PNG)
-
-	_Propiedades SplitRecord_
-	
-3. Configuramos el AvroRecordSetWriter
-
-	![](images/Captura9.PNG)
-
-	_Propiedades Writer Avro_
-
-4. Terminamos las relaciones que no son spliteadas
-
-	![](images/Captura10.PNG)
-
-	_Terminar relaciones_
-	
-5. Unimos los dos procesadores con la relacion success
